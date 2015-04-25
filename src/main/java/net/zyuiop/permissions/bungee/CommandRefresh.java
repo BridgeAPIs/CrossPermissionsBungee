@@ -17,7 +17,7 @@ public class CommandRefresh extends Command {
     private PermissionsAPI api;
 
     public CommandRefresh(PermissionsAPI api) {
-        super("bungeerefresh", "brefresh", "prefresh");
+        super("bungeerefresh", null, "brefresh", "prefresh");
         this.api = api;
     }
 
