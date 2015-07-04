@@ -35,11 +35,11 @@ public class CommandRefresh extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!canDo(sender)) {
-            sender.sendMessage(ChatColor.RED + "Vous n'avez pas le droit de faire cela.");
+            sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
             return;
         }
-        sender.sendMessage(ChatColor.GREEN + "Lancement d'un rechargement du cache de permissions proxy...");
+        sender.sendMessage(ChatColor.GREEN + "Refreshing BungeeCord permissions cache...");
         api.getManager().refresh();
-        sender.sendMessage(ChatColor.GREEN + "Le cache a bien été rechargé.");
+        sender.sendMessage(ChatColor.GREEN + "Cache refreshed !");
     }
 }
