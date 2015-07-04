@@ -45,8 +45,8 @@ public class PermissionBungee extends Plugin implements RawPlugin {
 
             if (config.getBoolean("redis-sentinel.enabled", false)) {
                 logInfo("Trying to load API with database mode : REDIS SENTINEL.");
-                String master = config.getString("redis-sentinel.master");
-                String auth = config.getString("redis-sentinel.auth");
+                String master = config.getString("redis-sentinel.master", null);
+                String auth = config.getString("redis-sentinel.auth", null);
                 List<String> ips = config.getStringList("redis-sentinel.sentinels");
 
                 if (master == null || auth == null || ips == null) {
