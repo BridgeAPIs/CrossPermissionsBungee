@@ -1,1 +1,15 @@
 default-group: Joueur
+
+redis-sentinel:
+   enabled: false
+   master: masterName
+   auth: authpassword
+   sentinels:
+      - ip:port
+      - ip:port
+
+redis:
+   enabled: false
+   auth: authpassword
+   address: ip
+   port: port
