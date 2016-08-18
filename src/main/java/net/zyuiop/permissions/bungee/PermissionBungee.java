@@ -6,6 +6,7 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import net.zyuiop.crosspermissions.api.PermissionsAPI;
+import net.zyuiop.crosspermissions.api.database.BasicSQLDatabase;
 import net.zyuiop.crosspermissions.api.database.JedisDatabase;
 import net.zyuiop.crosspermissions.api.database.JedisSentinelDatabase;
 import net.zyuiop.crosspermissions.api.rawtypes.RawPlayer;
@@ -77,6 +78,27 @@ public class PermissionBungee extends Plugin implements RawPlugin {
                     try {
                         JedisDatabase database = new JedisDatabase(address, port, auth);
                         api = new PermissionsAPI(this, config.getString("default-group"), database);
+                    } catch (Exception e) {
+                        logSevere("Configuration is not correct. Plugin failed to load.");
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            } else if (config.getBoolean("sql.enabled", false)) {
+                logInfo("Trying to load API with database mode : SQL.");
+                String address = config.getString("sql.host");
+                int port = config.getInt("sql.port", 3306);
+                String database = config.getString("sql.database");
+                String user = config.getString("sql.user");
+                String password = config.getString("sql.password");
+
+                if (address == null || database == null || user == null || password == null) {
+                    logSevere("Configuration is not complete. Plugin failed to load.");
+                    return;
+                } else {
+                    try {
+                        BasicSQLDatabase sqlDatabase = new BasicSQLDatabase(address, port, database, user, password);
+                        api = new PermissionsAPI(this, config.getString("default-group"), sqlDatabase);
                     } catch (Exception e) {
                         logSevere("Configuration is not correct. Plugin failed to load.");
                         e.printStackTrace();
